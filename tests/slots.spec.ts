@@ -12,5 +12,6 @@ test.describe('Slots page validation for ClientHub ROW', ()=> {
         const slots = new slotsGameLibrary(page)
         await validLoginCredentials.validLoginFlow()
         await slots.NavigateSlotsGameLibrary()
+        await slots.validateGBFilters()
     })
 })
