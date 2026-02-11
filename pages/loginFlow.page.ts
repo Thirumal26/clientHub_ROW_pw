@@ -1,5 +1,5 @@
 import { Page, expect, Locator } from "@playwright/test";
-import { loginCreditials } from "../utils/loginCredentials";
+import { loginCredentials } from "../fixtures/loginData";
 export class loginFlow{
     readonly page: Page
     readonly userNameText: Locator
@@ -20,14 +20,14 @@ export class loginFlow{
         await expect(welcomeText).toHaveText('Welcome to the Client Hub!')
     }
     async invalidLoginFlow(){
-        const loginDetails = loginCreditials()
+        const loginDetails = loginCredentials()
         await this.userNameText.fill(loginDetails.userName)
         await expect(this.rememberMeCb).not.toBeChecked()
         await this.rememberMeCb.check()
         await this.loginBtn.click()
     }
     async validLoginFlow(){
-        const loginDetails = loginCreditials()
+        const loginDetails = loginCredentials()
         await this.userNameText.fill(loginDetails.userName)
         await this.passwordText.fill(loginDetails.password)
         await expect(this.rememberMeCb).not.toBeChecked()
