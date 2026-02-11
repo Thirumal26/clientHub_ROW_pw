@@ -13,6 +13,7 @@ export class slotsGameLibrary{
     readonly exclusivityDropDownBtn: Locator
     readonly categoryDropDown: Locator
     readonly categoryDropDownBtn: Locator
+    readonly seeMoreBtn: Locator
 
     constructor(page:Page){
         this.page = page
@@ -31,6 +32,7 @@ export class slotsGameLibrary{
         .locator('..').locator('.selectize-input')
         this.categoryDropDownBtn = this.page.locator('[data-game-library-filter="game-new-studio-filter"]')
         .locator('..')
+        this.seeMoreBtn = this.page.getByRole("button", {name: 'See More'})
 
     }
     async NavigateSlotsGameLibrary(){
@@ -76,7 +78,13 @@ export class slotsGameLibrary{
         const clear = this.categoryDropDownBtn.locator('.clear')
         clear.click()
     }
-
+    async validateScrollDown(){
+        const button = this.seeMoreBtn
+        await button.scrollIntoViewIfNeeded()
+        if(await this.seeMoreBtn.isVisible()){
+            await button.click()
+        }
+    }
 
 
 }

@@ -16,5 +16,6 @@ test.describe('Slots page validation for ClientHub ROW', ()=> {
         await slots.validateGBFiltersCertifiedCountry()
         await slots.validateGBFiltersExclusivity()
         await slots.validateGBFiltersCategory()
+        await slots.validateScrollDown()
     })
 })
