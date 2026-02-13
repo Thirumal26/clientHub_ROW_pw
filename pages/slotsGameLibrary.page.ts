@@ -14,6 +14,10 @@ export class slotsGameLibrary{
     readonly categoryDropDown: Locator
     readonly categoryDropDownBtn: Locator
     readonly seeMoreBtn: Locator
+    readonly hyperplayToggle: Locator
+    readonly showUpcomingToggle: Locator
+    readonly freeSpinsToggle: Locator
+    readonly instantBonusToggle: Locator
 
     constructor(page:Page){
         this.page = page
@@ -33,7 +37,11 @@ export class slotsGameLibrary{
         this.categoryDropDownBtn = this.page.locator('[data-game-library-filter="game-new-studio-filter"]')
         .locator('..')
         this.seeMoreBtn = this.page.getByRole("button", {name: 'See More'})
-
+        //Toggle buttons
+        this.hyperplayToggle = this.page.locator('[data-game-library-filter="hyperplay"]')
+        this.showUpcomingToggle = this.page.locator('[data-game-library-filter="show-upcoming"]')
+        this.freeSpinsToggle = this.page.locator('[data-game-library-filter="free-spins"]')
+        this.instantBonusToggle = this.page.locator('[data-game-library-filter="has-instant-bonus"]')
     }
     async NavigateSlotsGameLibrary(){
         expect(this.slotsSidebar).toBeTruthy()
@@ -85,6 +93,14 @@ export class slotsGameLibrary{
             await button.click()
         }
     }
-
-
+    async validatetoggles(){
+        await this.hyperplayToggle.click()
+        expect(this.hyperplayToggle).toBeEnabled()
+        await this.showUpcomingToggle.click()
+        expect(this.showUpcomingToggle).toBeEnabled()
+        await this.freeSpinsToggle.click()
+        expect(this.freeSpinsToggle).toBeEnabled()
+        await this.showUpcomingToggle.click()
+        expect(this.showUpcomingToggle).toBeEnabled()
+    }
 }

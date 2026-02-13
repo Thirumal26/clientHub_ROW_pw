@@ -1,10 +1,10 @@
 import {test} from '@playwright/test'
-import { baseUrl } from "../pages/baseUrl.page";
+import { Url } from "../pages/baseUrl.page";
 import { loginFlow } from '../pages/loginFlow.page';
 import { loginCredentials } from '../fixtures/loginData';
 test.describe('Login flows of ClientHub-ROW', ()=>{
     test.beforeEach('Launch Site', async ({page})=>{
-        const launch = new baseUrl(page)
+        const launch = new Url(page)
         await launch.launchWebsite()
     })
     test('InValid Login credentials', async({page})=> {

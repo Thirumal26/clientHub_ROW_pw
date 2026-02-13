@@ -1,10 +1,12 @@
 import {Page, expect, Locator} from '@playwright/test'
-export class baseUrl{
+import { baseURL } from '../utils/baseUrl'
+export class Url{
     readonly page: Page
     constructor(page:Page){
         this.page = page
     }
     async launchWebsite(){
-        await this.page.goto('https://clienthub.pragmaticplay.com/')
+        const base_Url = baseURL()
+        await this.page.goto(base_Url.site_Url)
     }
 }
