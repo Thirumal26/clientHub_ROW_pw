@@ -36,7 +36,7 @@ export class slotsGameLibrary{
         .locator('..').locator('.selectize-input')
         this.categoryDropDownBtn = this.page.locator('[data-game-library-filter="game-new-studio-filter"]')
         .locator('..')
-        this.seeMoreBtn = this.page.getByRole("button", {name: 'See More'})
+        this.seeMoreBtn = this.page.locator('.game-library__loadmore')
         //Toggle buttons
         this.hyperplayToggle = this.page.locator('[data-game-library-filter="hyperplay"]')
         this.showUpcomingToggle = this.page.locator('[data-game-library-filter="show-upcoming"]')
@@ -87,10 +87,8 @@ export class slotsGameLibrary{
         clear.click()
     }
     async validateScrollDown(){
-        const button = this.seeMoreBtn
-        await button.scrollIntoViewIfNeeded()
         if(await this.seeMoreBtn.isVisible()){
-            await button.click()
+            await this.seeMoreBtn.click()
         }
     }
     async validatetoggles(){
@@ -100,7 +98,7 @@ export class slotsGameLibrary{
         expect(this.showUpcomingToggle).toBeEnabled()
         await this.freeSpinsToggle.click()
         expect(this.freeSpinsToggle).toBeEnabled()
-        await this.showUpcomingToggle.click()
+        await this.instantBonusToggle.click()
         expect(this.showUpcomingToggle).toBeEnabled()
     }
 }
