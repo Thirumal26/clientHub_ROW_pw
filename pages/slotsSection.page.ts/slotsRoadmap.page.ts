@@ -11,6 +11,7 @@ export class slotsRoadmap{
     readonly avaForTestingLabel: Locator
     readonly avaForOperatorsLabel: Locator
     readonly filterYearText: Locator
+    readonly yearLabelText: Locator
     readonly yearDrowdown: Locator
 
     constructor (page: Page){
@@ -24,8 +25,9 @@ export class slotsRoadmap{
         this.mediapackLabel = this.page.getByText('Game Media Pack Available')
         this.avaForTestingLabel = this.page.getByText('Game Available for Testing')
         this.avaForOperatorsLabel = this.page.locator('.clndr-legend__single').getByText('Game Available for Operators')
-        this.filterYearText = this.page.locator('.roadmap-filter-label')
-        this.yearDrowdown = this.page.locator('#roadmap-year-selectized')
+        this.filterYearText = this.page.locator('.roadmap-filter-label').nth(0)
+        this.yearLabelText = this.page.locator('.selectize-input .item').nth(0)
+        this.yearDrowdown = this.page.locator('.roadmap-filter-label').nth(0)
     }
     async validateRoadmapLandingPage(){
         await this.slotsBtn.click()
@@ -70,12 +72,14 @@ export class slotsRoadmap{
         const yearText = await this.filterYearText.textContent()
         expect(yearText).toMatch('Year')
         await this.filterYearText.click()
-        const randomYearSelect = this.yearDrowdown.locator('xpath=following-sibling::div')
-        .locator('.selectize-dropdown-content .option')
+        const randomYearSelect = this.page.locator('.option')
         const count = await randomYearSelect.count()
+        console.log(count)
         const randomIndex = Math.floor(Math.random()*count)
         await randomYearSelect.nth(randomIndex) .click()
-            const avaOperatorYearLabel = this.page.locator('#roadmap-container tr.roadmap__body-games__single td .copyable').textContent()
-            expect(avaOperatorYearLabel).toBe(yearText)
+        const yearTextDd = await this.filterYearText.textContent()
+        const year = await this.yearLabelText.textContent()
+        await expect(this.page.locator('#roadmap-container tr.roadmap__body-games__single td div.copyable').first()
+          ).toContainText(new RegExp(year?.trim()!))
     }
 }

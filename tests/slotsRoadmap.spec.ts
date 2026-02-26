@@ -15,5 +15,6 @@ test.describe('Slots Roadmap page', ()=> {
         await slotsRoadmapTest.validateRoadmapGames()
         await slotsRoadmapTest.validateCalendar()
         await slotsRoadmapTest.validateCalendarLabels()
+        await slotsRoadmapTest.validateYearFilter()
     })
 })
