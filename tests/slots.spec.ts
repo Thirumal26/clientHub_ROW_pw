@@ -1,10 +1,10 @@
 import {test} from '@playwright/test'
-import { baseUrl } from '../pages/baseUrl.page'
+import { Url } from '../pages/baseUrl.page'
 import { loginFlow } from '../pages/loginFlow.page'
 import { slotsGameLibrary } from '../pages/slotsGameLibrary.page'
 test.describe('Slots page validation for ClientHub ROW', ()=> {
     test.beforeEach('Launch Site', async ({page})=>{
-        const launch = new baseUrl(page)
+        const launch = new Url(page)
         await launch.launchWebsite()
     })
     test('Slots page', async({page})=> {
@@ -17,5 +17,12 @@ test.describe('Slots page validation for ClientHub ROW', ()=> {
         await slots.validateGBFiltersExclusivity()
         await slots.validateGBFiltersCategory()
         await slots.validateScrollDown()
+    })
+    test('filter toggles',async({page})=>{
+        const validLoginCredentials = new loginFlow(page)
+        const slotsFilter = new slotsGameLibrary(page)
+        await validLoginCredentials.validLoginFlow()
+        await slotsFilter.NavigateSlotsGameLibrary()
+        await slotsFilter.validatetoggles()
     })
 })
